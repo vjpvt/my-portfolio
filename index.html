@@ -435,7 +435,7 @@
         @media (max-width: 768px) {
             .hero-title-zh { font-size: 2.8rem; }
             .hero-title-en { font-size: 1.8rem; }
-            .nav-links { display: none; } /* ハンバーガー等は後ほど拡張可能 */
+            .nav-links { display: none; }
         }
     </style>
 </head>
@@ -545,7 +545,7 @@
             </div>
 
             <!-- STREAM DATA -->
-            <h3 style="font-family: var(--font-mono); font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px;">// STREAM PERFORMANCE (TWITCH)</h3>
+            <h3 style="font-family: var(--font-mono); font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px;">// STREAM PERFORMANCE & STATS</h3>
             <div class="grid-3">
                 <div class="hud-card stat-card">
                     <div class="stat-header">
@@ -567,11 +567,19 @@
 
                 <div class="hud-card stat-card">
                     <div class="stat-header">
-                        <span style="font-family: var(--font-mono); font-size: 0.85rem;">AIR TIME</span>
-                        <i class="fa-solid fa-clock" style="color: var(--text-muted);"></i>
+                        <span style="font-family: var(--font-mono); font-size: 0.85rem;">TOTAL VIEWS</span>
+                        <i class="fa-solid fa-eye" style="color: var(--text-muted);"></i>
                     </div>
-                    <div class="stat-value" id="air-time">取得中...</div>
-                    <div class="stat-sub">総配信時間</div>
+                    <div class="stat-value" id="youtube-total-views">取得中...</div>
+                    <div class="stat-sub">YouTube チャンネル総再生数</div>
+                </div>
+            </div>
+
+            <!-- グラフ表示エリア -->
+            <div style="margin-top: 30px;">
+                <h3 style="font-family: var(--font-mono); font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px;">// VIEWER TRENDS (HISTORY)</h3>
+                <div class="hud-card" style="padding: 20px;">
+                    <canvas id="viewerChart" style="width: 100%; max-height: 250px;"></canvas>
                 </div>
             </div>
         </section>
@@ -618,29 +626,30 @@
         </div>
     </footer>
 
-    <!-- DYNAMIC DATA FETCHING SCRIPT -->
+    <!-- Chart.js & DYNAMIC DATA FETCHING SCRIPT -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const DATA_API_URL = './data.json';
 
-            // フォールバック用データ（data.jsonが存在しない場合の安全装置）
             const fallbackData = {
-                twitchFollowers: "1,200",
+                twitchFollowers: "378",
                 xFollowers: "850",
-                youtubeSubscribers: "450",
-                avgViewers: "25",
-                maxViewers: "120",
-                airTime: "120h"
+                youtubeSubscribers: "58",
+                youtubeTotalViews: "15,200",
+                avgViewers: "4",
+                maxViewers: "170"
             };
 
             async function fetchMetrics() {
                 try {
-                    const response = await fetch(DATA_API_URL);
+                    const response = await fetch(DATA_API_URL + '?t=' + new Date().getTime());
                     if (!response.ok) {
                         throw new Error(`HTTP Error: ${response.status}`);
                     }
                     const data = await response.json();
                     renderData(data);
+                    renderChart(data.history);
                 } catch (error) {
                     console.warn('data.json の取得に失敗したため、初期表示設定を適用します:', error);
                     renderData(fallbackData);
@@ -653,7 +662,49 @@
                 document.getElementById('youtube-subscribers').textContent = data.youtubeSubscribers || "---";
                 document.getElementById('avg-viewers').textContent = data.avgViewers || "---";
                 document.getElementById('max-viewers').textContent = data.maxViewers || "---";
-                document.getElementById('air-time').textContent = data.airTime || "---";
+                document.getElementById('youtube-total-views').textContent = data.youtubeTotalViews || "---";
+            }
+
+            function renderChart(history) {
+                if (!history || history.length === 0) return;
+
+                const labels = history.map(item => item.time);
+                const viewersData = history.map(item => item.viewers);
+
+                const ctx = document.getElementById('viewerChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: '同時視聴者数',
+                            data: viewersData,
+                            borderColor: '#00ffcc',
+                            backgroundColor: 'rgba(0, 255, 204, 0.1)',
+                            borderWidth: 2,
+                            tension: 0.3,
+                            fill: true,
+                            pointRadius: 3
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: { display: false }
+                        },
+                        scales: {
+                            x: {
+                                ticks: { color: '#888', font: { size: 10 } },
+                                grid: { color: '#222' }
+                            },
+                            y: {
+                                beginAtZero: true,
+                                ticks: { color: '#888', font: { size: 10 } },
+                                grid: { color: '#222' }
+                            }
+                        }
+                    }
+                });
             }
 
             fetchMetrics();
