@@ -326,6 +326,23 @@
             border-left: 2px solid var(--accent-white);
         }
 
+        /* PREFERENCE TAGS */
+        .pref-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .pref-tag {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            padding: 4px 10px;
+            color: #ccc;
+        }
+
         /* METRICS / STATS */
         .stat-card {
             display: flex;
@@ -602,12 +619,21 @@
             <div class="grid-2">
                 <div class="hud-card bio-box">
                     <p><strong>初配信日：2021年9月25日</strong></p>
-                    <p>
-                        Twitchを中心に活動しているストリーマーの「武威（ぶい）」です。
+                    <p style="margin: 10px 0;">
+                        Twitchを中心に活動しているストリーマーの「武威（ぶい）」です。気取らず、リアルで面白い空間を作ることをモットーに日々配信を行っています。
                     </p>
-                    <p>
-                        気取らず、リアルで面白い空間を作ることをモットーに日々配信を行っています。くだらない雑談から熱いゲームプレイまで、常に視聴者の皆さんと楽しめるエンタメ空間づくりを徹底しています。
-                    </p>
+                    <div style="margin-top: 15px;">
+                        <strong style="font-size: 0.9rem; color: var(--accent-cyan); font-family: var(--font-mono);">// FAVORITES & INTERESTS</strong>
+                        <div class="pref-tags">
+                            <span class="pref-tag">FPS</span>
+                            <span class="pref-tag">MMO</span>
+                            <span class="pref-tag">サンドボックス</span>
+                            <span class="pref-tag">ロボット</span>
+                            <span class="pref-tag">BLEACH</span>
+                            <span class="pref-tag">酒</span>
+                            <span class="pref-tag">喫煙</span>
+                        </div>
+                    </div>
                 </div>
                 <div class="hud-card" id="contact">
                     <h3 style="font-family: var(--font-sf); font-size: 1.1rem; margin-bottom: 15px;">OFFICIAL CONTACT</h3>
