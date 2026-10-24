@@ -1,14 +1,18 @@
 {
   "twitchFollowers": "378",
   "xFollowers": "850",
-  "youtubeSubscribers": "---",
+  "youtubeSubscribers": "58",
   "avgViewers": "0",
   "maxViewers": "120",
   "airTime": "120h",
-  "lastUpdated": "2026-10-24 13:36",
+  "lastUpdated": "2026-10-24 13:39",
   "history": [
     {
       "time": "2026-10-24 13:36",
+      "viewers": 0
+    },
+    {
+      "time": "2026-10-24 13:39",
       "viewers": 0
     }
   ]
