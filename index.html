@@ -3,20 +3,661 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>マイポートフォリオ</title>
+    <title>武威 // VJPVT - STREAMER PORTFOLIO</title>
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        body {
-            font-family: sans-serif;
-            text-align: center;
-            padding: 50px;
-            background: #121212;
-            color: #ffffff;
+        :root {
+            --bg-primary: #050505;
+            --bg-secondary: #0d0d0d;
+            --bg-card: rgba(18, 18, 18, 0.75);
+            --border-color: rgba(255, 255, 255, 0.12);
+            --border-focus: rgba(255, 255, 255, 0.4);
+            --text-primary: #f0f0f0;
+            --text-muted: #888888;
+            --accent-white: #ffffff;
+            --font-mono: 'Share Tech Mono', monospace;
+            --font-sf: 'Orbitron', sans-serif;
+            --font-main: 'Noto Sans JP', sans-serif;
         }
-        h1 { color: #9146FF; }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.03) 0%, transparent 70%),
+                linear-gradient(to bottom, rgba(255,255,255,0.01) 1px, transparent 1px),
+                linear-gradient(to right, rgba(255,255,255,0.01) 1px, transparent 1px);
+            background-size: 100% 100%, 40px 40px, 40px 40px;
+        }
+
+        /* SF HUD Scanline Effect */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+            background-size: 100% 4px;
+            z-index: 999;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* HEADER */
+        header {
+            position: sticky;
+            top: 0;
+            background: rgba(5, 5, 5, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 100;
+            padding: 15px 0;
+        }
+
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-logo {
+            font-family: var(--font-sf);
+            font-weight: 900;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-logo .zh {
+            font-size: 1.6rem;
+            border: 1px solid var(--border-color);
+            padding: 0 6px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-white);
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+        }
+
+        /* HERO SECTION */
+        .hero {
+            padding: 100px 0 60px;
+            position: relative;
+        }
+
+        .hero-hud-tag {
+            font-family: var(--font-mono);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+            display: inline-block;
+            border-left: 2px solid var(--text-primary);
+            padding-left: 8px;
+        }
+
+        .hero-title-group {
+            display: flex;
+            align-items: baseline;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .hero-title-zh {
+            font-size: 4rem;
+            font-weight: 900;
+            letter-spacing: 4px;
+            line-height: 1;
+        }
+
+        .hero-title-en {
+            font-family: var(--font-sf);
+            font-size: 2.5rem;
+            color: var(--text-muted);
+            letter-spacing: 3px;
+        }
+
+        .hero-subtitle {
+            font-family: var(--font-mono);
+            font-size: 1.2rem;
+            margin: 15px 0 25px;
+            color: #ccc;
+            letter-spacing: 1px;
+        }
+
+        .hero-desc {
+            max-width: 650px;
+            color: #aaa;
+            font-size: 1rem;
+            line-height: 1.8;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 20px;
+            border-left: 3px solid var(--border-focus);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .hero-desc::after {
+            content: "機密";
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.15);
+            font-weight: 900;
+        }
+
+        /* COMMON SECTION STYLES */
+        section {
+            padding: 60px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 35px;
+        }
+
+        .section-title {
+            font-family: var(--font-sf);
+            font-size: 1.6rem;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title-zh {
+            font-family: var(--font-main);
+            font-size: 1rem;
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+            padding: 2px 6px;
+        }
+
+        .section-line {
+            flex-grow: 1;
+            height: 1px;
+            background: linear-gradient(to right, var(--border-color), transparent);
+        }
+
+        /* GRID LAYOUTS */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        /* CARD STYLE (SF HUD CUT CORNERS) */
+        .hud-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 25px;
+            position: relative;
+            clip-path: polygon(
+                0 0, 
+                calc(100% - 12px) 0, 
+                100% 12px, 
+                100% 100%, 
+                12px 100%, 
+                0 calc(100% - 12px)
+            );
+            transition: all 0.3s ease;
+        }
+
+        .hud-card:hover {
+            border-color: var(--border-focus);
+            background: rgba(30, 30, 30, 0.85);
+            transform: translateY(-2px);
+        }
+
+        .hud-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 6px;
+            border-top: 2px solid var(--accent-white);
+            border-left: 2px solid var(--accent-white);
+        }
+
+        /* ABOUT ME */
+        .bio-box p {
+            margin-bottom: 12px;
+            color: #ccc;
+            font-size: 0.95rem;
+        }
+
+        .contact-group {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .contact-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 15px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border-color);
+        }
+
+        .contact-card:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: var(--accent-white);
+        }
+
+        .contact-label {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .contact-val {
+            font-family: var(--font-mono);
+            font-size: 0.95rem;
+            color: var(--accent-white);
+        }
+
+        /* METRICS / STATS */
+        .stat-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .stat-platform {
+            font-family: var(--font-sf);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .stat-value {
+            font-family: var(--font-mono);
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin: 10px 0;
+        }
+
+        .stat-sub {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+
+        /* TIMELINE */
+        .timeline {
+            position: relative;
+            padding-left: 20px;
+            border-left: 1px dashed var(--border-color);
+        }
+
+        .tl-item {
+            position: relative;
+            margin-bottom: 30px;
+            padding-left: 20px;
+        }
+
+        .tl-item::before {
+            content: "";
+            position: absolute;
+            left: -25px;
+            top: 5px;
+            width: 9px;
+            height: 9px;
+            background: var(--bg-primary);
+            border: 2px solid var(--accent-white);
+            transform: rotate(45deg);
+        }
+
+        .tl-date {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .tl-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin: 4px 0;
+        }
+
+        .tl-desc {
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        /* FOOTER */
+        footer {
+            padding: 50px 0 30px;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+        }
+
+        .footer-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border-color);
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+        }
+
+        .social-btn:hover {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+        }
+
+        .copyright {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero-title-zh { font-size: 2.8rem; }
+            .hero-title-en { font-size: 1.8rem; }
+            .nav-links { display: none; } /* ハンバーガー等は後ほど拡張可能 */
+        }
     </style>
 </head>
 <body>
-    <h1>マイポートフォリオへようこそ！</h1>
-    <p>ここからサイトを作っていきます。</p>
+
+    <!-- HEADER -->
+    <header>
+        <div class="container nav-inner">
+            <a href="#" class="brand-logo">
+                <span class="zh">武</span> 武威 <span>// VJPVT</span>
+            </a>
+            <nav class="nav-links">
+                <a href="#about">// ABOUT</a>
+                <a href="#stats">// METRICS</a>
+                <a href="#history">// HISTORY</a>
+                <a href="#contact">// CONTACT</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- HERO -->
+        <section class="hero">
+            <span class="hero-hud-tag">STREAMER MEDIA KIT</span>
+            <div class="hero-title-group">
+                <h1 class="hero-title-zh">武威</h1>
+                <span class="hero-title-en">VJPVT</span>
+            </div>
+            <p class="hero-subtitle">VALORANT / TWITCH STREAMER</p>
+            <div class="hero-desc">
+                くだらないことでも全力で拾って笑いに変える、エンタメ重視の配信スタイル。<br>
+                VALORANTのゲームプレイを中心に、リスナーと一緒に熱量高く楽しめる空間をお届けしています。
+            </div>
+        </section>
+
+        <!-- ABOUT ME -->
+        <section id="about">
+            <div class="section-header">
+                <h2 class="section-title"><span class="section-title-zh">概要</span> ABOUT ME</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="grid-2">
+                <div class="hud-card bio-box">
+                    <p><strong>初配信日：2021年9月25日</strong></p>
+                    <p>
+                        Twitchを中心に活動しているストリーマーの「武威（ぶい）」です。
+                    </p>
+                    <p>
+                        気取らず、リアルで面白い空間を作ることをモットーに日々配信を行っています。くだらない雑談から熱いゲームプレイまで、常に視聴者の皆さんと楽しめるエンタメ空間づくりを徹底しています。
+                    </p>
+                </div>
+                <div class="hud-card" id="contact">
+                    <h3 style="font-family: var(--font-sf); font-size: 1.1rem; margin-bottom: 15px;">OFFICIAL CONTACT</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">
+                        案件のご依頼、コラボ等のお問い合わせはメールまたはX(Twitter)のDMより受け付けております。
+                    </p>
+                    <div class="contact-group">
+                        <a href="mailto:v.vss.man@gmail.com" class="contact-card">
+                            <span class="contact-label"><i class="fa-solid fa-envelope"></i> E-MAIL</span>
+                            <span class="contact-val">v.vss.man@gmail.com</span>
+                        </a>
+                        <a href="https://x.com/Vjpvt_" target="_blank" rel="noopener" class="contact-card">
+                            <span class="contact-label"><i class="fa-brands fa-x-twitter"></i> X (DM)</span>
+                            <span class="contact-val">@Vjpvt_</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SNS & STREAM METRICS -->
+        <section id="stats">
+            <div class="section-header">
+                <h2 class="section-title"><span class="section-title-zh">実績</span> METRICS</h2>
+                <div class="section-line"></div>
+            </div>
+
+            <!-- AUDIENCE OVERVIEW -->
+            <h3 style="font-family: var(--font-mono); font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px;">// AUDIENCE OVERVIEW</h3>
+            <div class="grid-3" style="margin-bottom: 30px;">
+                <div class="hud-card stat-card">
+                    <div class="stat-header">
+                        <span class="stat-platform"><i class="fa-brands fa-twitch"></i> TWITCH</span>
+                        <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted);">FOLLOWERS</span>
+                    </div>
+                    <div class="stat-value" id="twitch-followers">取得中...</div>
+                    <div class="stat-sub">フォロワー数</div>
+                </div>
+
+                <div class="hud-card stat-card">
+                    <div class="stat-header">
+                        <span class="stat-platform"><i class="fa-brands fa-x-twitter"></i> X (TWITTER)</span>
+                        <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted);">FOLLOWERS</span>
+                    </div>
+                    <div class="stat-value" id="x-followers">取得中...</div>
+                    <div class="stat-sub">フォロワー数</div>
+                </div>
+
+                <div class="hud-card stat-card">
+                    <div class="stat-header">
+                        <span class="stat-platform"><i class="fa-brands fa-youtube"></i> YOUTUBE</span>
+                        <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted);">SUBSCRIBERS</span>
+                    </div>
+                    <div class="stat-value" id="youtube-subscribers">取得中...</div>
+                    <div class="stat-sub">チャンネル登録者数</div>
+                </div>
+            </div>
+
+            <!-- STREAM DATA -->
+            <h3 style="font-family: var(--font-mono); font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px;">// STREAM PERFORMANCE (TWITCH)</h3>
+            <div class="grid-3">
+                <div class="hud-card stat-card">
+                    <div class="stat-header">
+                        <span style="font-family: var(--font-mono); font-size: 0.85rem;">AVG VIEWERS</span>
+                        <i class="fa-solid fa-users" style="color: var(--text-muted);"></i>
+                    </div>
+                    <div class="stat-value" id="avg-viewers">取得中...</div>
+                    <div class="stat-sub">平均同時視聴者数</div>
+                </div>
+
+                <div class="hud-card stat-card">
+                    <div class="stat-header">
+                        <span style="font-family: var(--font-mono); font-size: 0.85rem;">MAX VIEWERS</span>
+                        <i class="fa-solid fa-fire" style="color: var(--text-muted);"></i>
+                    </div>
+                    <div class="stat-value" id="max-viewers">取得中...</div>
+                    <div class="stat-sub">最高同時視聴者数</div>
+                </div>
+
+                <div class="hud-card stat-card">
+                    <div class="stat-header">
+                        <span style="font-family: var(--font-mono); font-size: 0.85rem;">AIR TIME</span>
+                        <i class="fa-solid fa-clock" style="color: var(--text-muted);"></i>
+                    </div>
+                    <div class="stat-value" id="air-time">取得中...</div>
+                    <div class="stat-sub">総配信時間</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- HISTORY / SPONSORS -->
+        <section id="history">
+            <div class="section-header">
+                <h2 class="section-title"><span class="section-title-zh">経歴</span> HISTORY & PARTNERSHIP</h2>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="timeline">
+                <div class="tl-item">
+                    <div class="tl-date">OFFICIAL CREATOR</div>
+                    <div class="tl-title">Mecha BREAK 公式クリエイター</div>
+                    <div class="tl-desc">Mecha BREAK 公式クリエイターとして動画投稿および配信活動を展開。</div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-date">2021.09.25</div>
+                    <div class="tl-title">配信活動開始</div>
+                    <div class="tl-desc">Twitchにて本格的にストリーマーとしての配信活動を開始。</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container footer-inner">
+            <div class="social-links">
+                <a href="https://www.twitch.tv/vjpvt" target="_blank" rel="noopener" class="social-btn">
+                    <i class="fa-brands fa-twitch"></i> Twitch
+                </a>
+                <a href="https://x.com/Vjpvt_" target="_blank" rel="noopener" class="social-btn">
+                    <i class="fa-brands fa-x-twitter"></i> X (Twitter)
+                </a>
+                <a href="https://www.youtube.com/@Twitch_vjpvt" target="_blank" rel="noopener" class="social-btn">
+                    <i class="fa-brands fa-youtube"></i> YouTube
+                </a>
+            </div>
+            <div class="copyright">
+                &copy; 武威 // VJPVT. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- DYNAMIC DATA FETCHING SCRIPT -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const DATA_API_URL = './data.json';
+
+            // フォールバック用データ（data.jsonが存在しない場合の安全装置）
+            const fallbackData = {
+                twitchFollowers: "1,200",
+                xFollowers: "850",
+                youtubeSubscribers: "450",
+                avgViewers: "25",
+                maxViewers: "120",
+                airTime: "120h"
+            };
+
+            async function fetchMetrics() {
+                try {
+                    const response = await fetch(DATA_API_URL);
+                    if (!response.ok) {
+                        throw new Error(`HTTP Error: ${response.status}`);
+                    }
+                    const data = await response.json();
+                    renderData(data);
+                } catch (error) {
+                    console.warn('data.json の取得に失敗したため、初期表示設定を適用します:', error);
+                    renderData(fallbackData);
+                }
+            }
+
+            function renderData(data) {
+                document.getElementById('twitch-followers').textContent = data.twitchFollowers || "---";
+                document.getElementById('x-followers').textContent = data.xFollowers || "---";
+                document.getElementById('youtube-subscribers').textContent = data.youtubeSubscribers || "---";
+                document.getElementById('avg-viewers').textContent = data.avgViewers || "---";
+                document.getElementById('max-viewers').textContent = data.maxViewers || "---";
+                document.getElementById('air-time').textContent = data.airTime || "---";
+            }
+
+            fetchMetrics();
+        });
+    </script>
 </body>
 </html>
