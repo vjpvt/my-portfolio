@@ -144,6 +144,12 @@
             clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
         }
 
+        .floating-btn-text {
+            font-family: var(--font-sf);
+            font-weight: 900;
+            font-size: 1.1rem;
+        }
+
         .floating-btn:hover {
             border-color: var(--accent-cyan);
             color: var(--accent-cyan);
@@ -430,11 +436,6 @@
             margin: 4px 0;
         }
 
-        .tl-desc {
-            font-size: 0.9rem;
-            color: #aaa;
-        }
-
         /* PARTNERSHIP BANNER */
         .partnership-box {
             background: linear-gradient(135deg, rgba(0,255,204,0.05) 0%, rgba(18,18,18,0.85) 100%);
@@ -531,7 +532,7 @@
             <i class="fa-brands fa-twitch"></i>
         </a>
         <a href="https://x.com/Vjpvt_" target="_blank" rel="noopener" class="floating-btn" title="X (Twitter)">
-            <i class="fa-brands fa-x-twitter"></i>
+            <span class="floating-btn-text">X</span>
         </a>
         <a href="https://www.youtube.com/@Twitch_vjpvt" target="_blank" rel="noopener" class="floating-btn" title="YouTube">
             <i class="fa-brands fa-youtube"></i>
@@ -720,8 +721,11 @@
             <div class="timeline">
                 <div class="tl-item">
                     <div class="tl-date">OFFICIAL CREATOR</div>
-                    <div class="tl-title">Mecha BREAK 公式クリエイター</div>
-                    <div class="tl-desc">Mecha BREAK 公式クリエイターとして動画投稿および配信活動を展開。</div>
+                    <div class="tl-title">Mecha BREAK 公式クリエイター就任</div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-date">2021.09.25</div>
+                    <div class="tl-title">配信活動開始</div>
                 </div>
             </div>
 
@@ -744,7 +748,7 @@
                     <i class="fa-brands fa-twitch"></i> Twitch
                 </a>
                 <a href="https://x.com/Vjpvt_" target="_blank" rel="noopener" class="social-btn">
-                    <i class="fa-brands fa-x-twitter"></i> X (Twitter)
+                    <span style="font-weight: 900;">X</span> (Twitter)
                 </a>
                 <a href="https://www.youtube.com/@Twitch_vjpvt" target="_blank" rel="noopener" class="social-btn">
                     <i class="fa-brands fa-youtube"></i> YouTube
