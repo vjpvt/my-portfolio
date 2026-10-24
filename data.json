@@ -3,9 +3,9 @@
   "xFollowers": "850",
   "youtubeSubscribers": "58",
   "avgViewers": "0",
-  "maxViewers": "120",
+  "maxViewers": "0",
   "airTime": "120h",
-  "lastUpdated": "2026-10-24 13:47",
+  "lastUpdated": "2026-10-24 13:51",
   "history": [
     {
       "time": "2026-10-24 13:36",
@@ -21,6 +21,10 @@
     },
     {
       "time": "2026-10-24 13:47",
+      "viewers": 0
+    },
+    {
+      "time": "2026-10-24 13:51",
       "viewers": 0
     }
   ]
