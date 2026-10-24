@@ -2,9 +2,9 @@
   "twitchFollowers": "378",
   "xFollowers": "850",
   "youtubeSubscribers": "58",
-  "youtubeTotalViews": "450,567",
+  "youtubeTotalViews": "15,200",
   "avgViewers": "4",
-  "maxViewers": "6",
+  "maxViewers": "170",
   "twitchUniqueAvg": "265",
   "youtubeDemographics": {
     "gender": {
@@ -12,44 +12,33 @@
       "female": "6.4%"
     },
     "age": {
-      "13-17": "9.9%",
-      "18-24": "32.8%",
-      "25-34": "45.5%",
-      "35-44": "6.6%",
-      "45-54": "4.7%",
-      "55-64": "0.3%",
-      "65+": "0.2%"
+      "core": "25–34歳 (45.5%)",
+      "sub": "18–24歳 (32.8%)"
     }
   },
-  "lastUpdated": "2026-10-24 14:20",
-  "history": [
+  "popularShorts": [
     {
-      "time": "10-20",
-      "viewers": 3
+      "title": "YouTube Shorts #1",
+      "url": "https://www.youtube.com/@Twitch_vjpvt/shorts",
+      "views": "3.1K"
     },
     {
-      "time": "10-21",
-      "viewers": 5
+      "title": "YouTube Shorts #2",
+      "url": "https://www.youtube.com/@Twitch_vjpvt/shorts",
+      "views": "2.5K"
     },
     {
-      "time": "10-22",
-      "viewers": 4
-    },
-    {
-      "time": "10-23",
-      "viewers": 6
-    },
-    {
-      "time": "10-24",
-      "viewers": 4
-    },
-    {
-      "time": "2026-10-24 14:13",
-      "viewers": 0
-    },
-    {
-      "time": "2026-10-24 14:20",
-      "viewers": 0
+      "title": "YouTube Shorts #3",
+      "url": "https://www.youtube.com/@Twitch_vjpvt/shorts",
+      "views": "1.2K"
     }
+  ],
+  "lastUpdated": "2026-10-24 14:35",
+  "history": [
+    { "time": "10-20", "viewers": 3 },
+    { "time": "10-21", "viewers": 5 },
+    { "time": "10-22", "viewers": 4 },
+    { "time": "10-23", "viewers": 6 },
+    { "time": "10-24", "viewers": 4 }
   ]
 }
