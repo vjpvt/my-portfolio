@@ -343,6 +343,158 @@
             color: #ccc;
         }
 
+        /* REWARDS TRIGGER BUTTON */
+        .rewards-trigger-btn {
+            width: 100%;
+            padding: 20px 25px;
+            background: var(--bg-card);
+            border: 1px solid var(--accent-cyan);
+            color: var(--text-primary);
+            font-family: var(--font-mono);
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+            transition: all 0.3s ease;
+        }
+
+        .rewards-trigger-btn:hover {
+            background: rgba(0, 255, 204, 0.1);
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* MODAL POPUP */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-container {
+            background: #0d0d0d;
+            border: 1px solid var(--accent-cyan);
+            width: 100%;
+            max-width: 900px;
+            max-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+            box-shadow: 0 0 30px rgba(0, 255, 204, 0.15);
+        }
+
+        .modal-header {
+            padding: 20px 25px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .modal-title {
+            font-family: var(--font-mono);
+            font-size: 1.1rem;
+            color: var(--accent-cyan);
+        }
+
+        .modal-body {
+            padding: 25px;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+
+        .modal-footer {
+            padding: 15px 25px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .modal-close-btn {
+            padding: 10px 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            font-family: var(--font-mono);
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close-btn:hover {
+            background: var(--accent-pink);
+            border-color: var(--accent-pink);
+            color: #fff;
+        }
+
+        .reward-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .reward-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .reward-card:hover {
+            border-color: var(--accent-cyan);
+            background: rgba(0, 255, 204, 0.02);
+        }
+
+        .reward-img-wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 10px;
+            min-height: 200px;
+        }
+
+        .reward-card img {
+            max-width: 100%;
+            max-height: 280px;
+            object-fit: contain;
+        }
+
+        .reward-title {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            margin-top: 12px;
+            color: #fff;
+            font-weight: 700;
+        }
+
         /* METRICS / STATS */
         .stat-card {
             display: flex;
@@ -569,6 +721,7 @@
             </a>
             <nav class="nav-links">
                 <a href="#about">// ABOUT</a>
+                <a href="#rewards">// REWARDS</a>
                 <a href="#stats">// METRICS</a>
                 <a href="#history">// HISTORY</a>
                 <a href="#partnership">// PARTNERSHIP</a>
@@ -652,6 +805,19 @@
                     </div>
                 </div>
             </div>
+        </section>
+
+        <!-- SUB REWARDS ARCHIVE (ポップアップ起動ボタン) -->
+        <section id="rewards">
+            <div class="section-header">
+                <h2 class="section-title"><span class="section-title-zh">特典</span> SUB REWARDS ARCHIVE</h2>
+                <div class="section-line"></div>
+            </div>
+
+            <button class="rewards-trigger-btn" id="openModalBtn">
+                <span><i class="fa-brands fa-twitch" style="color: var(--accent-cyan); margin-right: 10px;"></i> サブスク特典アーカイブ一覧を見る</span>
+                <span style="font-size: 0.85rem; color: var(--accent-cyan);">[ VIEW ALL ] <i class="fa-solid fa-arrow-right"></i></span>
+            </button>
         </section>
 
         <!-- SNS & METRICS -->
@@ -805,6 +971,38 @@
         </section>
     </main>
 
+    <!-- MODAL POPUP WINDOW -->
+    <div class="modal-overlay" id="rewardsModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <div class="modal-title">// SUB REWARDS ARCHIVE</div>
+                <button class="modal-close-btn" id="modalHeaderCloseBtn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div style="font-family: var(--font-mono); font-size: 0.9rem; color: var(--accent-cyan); margin-bottom: 15px; border-left: 2px solid var(--accent-cyan); padding-left: 8px;">
+                    2026.10 - TWITCH SUB REWARDS
+                </div>
+                <div class="reward-grid">
+                    <div class="reward-card">
+                        <div class="reward-img-wrapper">
+                            <img src="2610_PC壁紙.png" alt="2026.10 PC壁紙">
+                        </div>
+                        <div class="reward-title">PC用壁紙（2026.10）</div>
+                    </div>
+                    <div class="reward-card">
+                        <div class="reward-img-wrapper">
+                            <img src="2610_スマホ壁紙.png" alt="2026.10 スマホ壁紙">
+                        </div>
+                        <div class="reward-title">スマホ用壁紙（2026.10）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-close-btn" id="modalFooterCloseBtn">[ 閉じる ]</button>
+            </div>
+        </div>
+    </div>
+
     <!-- FOOTER -->
     <footer>
         <div class="container footer-inner">
@@ -830,6 +1028,22 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const DATA_API_URL = './data.json';
+
+            // モーダルポップアップ制御
+            const modal = document.getElementById('rewardsModal');
+            const openBtn = document.getElementById('openModalBtn');
+            const closeBtnHeader = document.getElementById('modalHeaderCloseBtn');
+            const closeBtnFooter = document.getElementById('modalFooterCloseBtn');
+
+            function openModal() { modal.classList.add('open'); }
+            function closeModal() { modal.classList.remove('open'); }
+
+            openBtn.addEventListener('click', openModal);
+            closeBtnHeader.addEventListener('click', closeModal);
+            closeBtnFooter.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal();
+            });
 
             async function fetchMetrics() {
                 try {
