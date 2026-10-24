@@ -34,7 +34,7 @@ def get_twitch_token():
 
 def fetch_twitch_data(token):
     if not token or not TWITCH_USER_LOGIN:
-        return {"followers": "0", "viewers": 0}
+        return {"followers": "378", "viewers": 0}
     
     headers = {
         "Client-ID": TWITCH_CLIENT_ID,
@@ -48,17 +48,15 @@ def fetch_twitch_data(token):
             user_data = json.loads(res.read().decode("utf-8"))
             users = user_data.get("data", [])
             if not users:
-                return {}
+                return {"followers": "378", "viewers": 0}
             user_id = users[0]["id"]
             
-        # フォロワー数取得
         follow_url = f"https://api.twitch.tv/helix/channels/followers?broadcaster_id={user_id}"
         req_f = urllib.request.Request(follow_url, headers=headers)
         with urllib.request.urlopen(req_f) as res:
             follow_data = json.loads(res.read().decode("utf-8"))
             total_followers = follow_data.get("total", 0)
             
-        # ライブ配信中の視聴者数取得
         stream_url = f"https://api.twitch.tv/helix/streams?user_id={user_id}"
         req_s = urllib.request.Request(stream_url, headers=headers)
         current_viewers = 0
@@ -70,7 +68,7 @@ def fetch_twitch_data(token):
                 
         return {
             "followers": f"{total_followers:,}",
-            "viewers": current_viewer_int := current_viewers
+            "viewers": current_viewers
         }
     except Exception as e:
         print(f"Twitch API Error: {e}")
@@ -129,7 +127,7 @@ def main():
     new_data = {
         "twitchFollowers": twitch_info.get("followers", "378"),
         "xFollowers": "850",
-        "youtubeSubscribers": youtube_info.get("subscribers", "---"),
+        "youtubeSubscribers": youtube_info.get("subscribers", "58"),
         "avgViewers": str(avg_viewers),
         "maxViewers": str(max_viewers),
         "airTime": "120h",
@@ -139,7 +137,7 @@ def main():
 
     with open(data_file, "w", encoding="utf-8") as f:
         json.dump(new_data, f, ensure_ascii=False, indent=2)
-    print("data.json updated successfully with automatic calculations!")
+    print("data.json updated successfully!")
 
 if __name__ == "__main__":
     main()
