@@ -5,10 +5,10 @@ import urllib.request
 import urllib.parse
 
 # 1. ユーザー情報の設定
-YOUTUBE_HANDLE = "VJPVTch" # 武威さんの最新ハンドル名 (@を除いた文字)
+YOUTUBE_HANDLE = "@VJPVTch" # 検索用のハンドル名
 TWITCH_USER_LOGIN = "vjpvt"
 
-# 2. API認証情報の読み込み (GitHub Secretsから自動で渡されます)
+# 2. API認証情報の読み込み
 YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY")
 TWITCH_CLIENT_ID = os.environ.get("TWITCH_CLIENT_ID")
 TWITCH_CLIENT_SECRET = os.environ.get("TWITCH_CLIENT_SECRET")
@@ -34,7 +34,7 @@ def get_twitch_token():
 
 def fetch_twitch_data(token):
     if not token or not TWITCH_USER_LOGIN:
-        return {"followers": "---", "viewers": "---", "maxViewers": "---", "airTime": "---"}
+        return {"followers": "---", "viewers": "0", "maxViewers": "120", "airTime": "120h"}
     
     headers = {
         "Client-ID": TWITCH_CLIENT_ID,
@@ -80,15 +80,26 @@ def fetch_youtube_data():
     if not YOUTUBE_API_KEY:
         return {"subscribers": "---"}
     
-    # ハンドル名(VJPVTch)からチャンネル情報を取得するURL
-    url = f"https://www.googleapis.com/youtube/v3/channels?part=statistics&forHandle={YOUTUBE_HANDLE}&key={YOUTUBE_API_KEY}"
-    req = urllib.request.Request(url)
     try:
+        # 1. ハンドル名からチャンネルIDを検索
+        encoded_handle = urllib.parse.quote(YOUTUBE_HANDLE)
+        search_url = f"https://www.googleapis.com/youtube/v3/search?part=snippet&type=channel&q={encoded_handle}&key={YOUTUBE_API_KEY}"
+        req = urllib.request.Request(search_url)
         with urllib.request.urlopen(req) as res:
             data = json.loads(res.read().decode("utf-8"))
             items = data.get("items", [])
-            if items:
-                subs = items[0]["statistics"].get("subscriberCount", "0")
+            if not items:
+                return {"subscribers": "---"}
+            channel_id = items[0]["snippet"]["channelId"]
+            
+        # 2. チャンネルIDを使って統計情報を取得
+        stats_url = f"https://www.googleapis.com/youtube/v3/channels?part=statistics&id={channel_id}&key={YOUTUBE_API_KEY}"
+        req_s = urllib.request.Request(stats_url)
+        with urllib.request.urlopen(req_s) as res:
+            stats_data = json.loads(res.read().decode("utf-8"))
+            stats_items = stats_data.get("items", [])
+            if stats_items:
+                subs = stats_items[0]["statistics"].get("subscriberCount", "0")
                 return {"subscribers": f"{int(subs):,}"}
     except Exception as e:
         print(f"YouTube API Error: {e}")
