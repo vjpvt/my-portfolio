@@ -295,8 +295,8 @@
             font-family: var(--font-mono);
         }
 
-        /* SHORT CARDS STYLE */
-        .short-card {
+        /* VIDEO CARDS STYLE */
+        .video-card {
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -306,12 +306,12 @@
             position: relative;
         }
 
-        .short-card:hover {
+        .video-card:hover {
             border-color: var(--accent-cyan);
             background: rgba(0, 255, 204, 0.05);
         }
 
-        .short-badge {
+        .video-badge {
             font-family: var(--font-mono);
             font-size: 0.75rem;
             color: var(--accent-cyan);
@@ -321,14 +321,18 @@
             margin-bottom: 10px;
         }
 
-        .short-title {
+        .video-title {
             font-size: 0.95rem;
             font-weight: 700;
             margin-bottom: 10px;
             color: #fff;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
-        .short-views {
+        .video-views {
             font-family: var(--font-mono);
             font-size: 0.85rem;
             color: var(--text-muted);
@@ -377,6 +381,26 @@
         .tl-desc {
             font-size: 0.9rem;
             color: #aaa;
+        }
+
+        /* PARTNERSHIP BANNER */
+        .partnership-box {
+            background: linear-gradient(135deg, rgba(0,255,204,0.05) 0%, rgba(18,18,18,0.85) 100%);
+            border: 1px solid var(--accent-cyan);
+            padding: 30px;
+            position: relative;
+            margin-top: 40px;
+        }
+
+        .partnership-box::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 10px;
+            height: 10px;
+            border-top: 2px solid var(--accent-cyan);
+            border-left: 2px solid var(--accent-cyan);
         }
 
         /* FOOTER */
@@ -442,6 +466,7 @@
                 <a href="#about">// ABOUT</a>
                 <a href="#stats">// METRICS</a>
                 <a href="#history">// HISTORY</a>
+                <a href="#partnership">// PARTNERSHIP</a>
                 <a href="#contact">// CONTACT</a>
             </nav>
         </div>
@@ -573,7 +598,7 @@
             </div>
 
             <!-- 3. YOUTUBE DATA -->
-            <h3 style="font-family: var(--font-mono); font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px;">// 3. YOUTUBE DATA (ANALYTICS & SHORTS)</h3>
+            <h3 style="font-family: var(--font-mono); font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px;">// 3. YOUTUBE DATA (ANALYTICS & POPULAR VIDEOS)</h3>
             <div class="grid-3" style="margin-bottom: 20px;">
                 <!-- 総再生数 -->
                 <div class="hud-card stat-card">
@@ -610,10 +635,10 @@
                 </div>
             </div>
 
-            <!-- 人気ショート動画3選 -->
+            <!-- 人気動画（自動取得）トップ3 -->
             <div class="hud-card" style="padding: 20px;">
-                <div style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">FEATURED SHORTS (注目ショート動画)</div>
-                <div class="grid-3" id="shorts-container">
+                <div style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">FEATURED VIDEOS (人気動画トップ3 / 自動更新)</div>
+                <div class="grid-3" id="videos-container">
                     <!-- JavaScriptで動的生成されます -->
                 </div>
             </div>
@@ -637,6 +662,15 @@
                     <div class="tl-title">配信活動開始</div>
                     <div class="tl-desc">Twitchにて本格的にストリーマーとしての配信活動を開始。</div>
                 </div>
+            </div>
+
+            <!-- 長期パートナーシップ募集セクション -->
+            <div class="partnership-box" id="partnership">
+                <div style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--accent-cyan); margin-bottom: 8px;">// PARTNERSHIP OPPORTUNITIES</div>
+                <h3 style="font-family: var(--font-sf); font-size: 1.2rem; margin-bottom: 15px;">長期的なパートナーシップ様を募集しております</h3>
+                <p style="font-size: 0.95rem; color: #ccc; line-height: 1.8;">
+                    長期スポンサー契約、ブランドアンバサダー、継続的なPR施策、製品提供、イベント・大会へのご招待など、お仕事のご相談はメールまたはXのDMよりお気軽にご連絡ください。
+                </p>
             </div>
         </section>
     </main>
@@ -676,7 +710,7 @@
                     const data = await response.json();
                     renderData(data);
                     renderChart(data.history);
-                    renderShorts(data.popularShorts);
+                    renderVideos(data.featuredVideos);
                 } catch (error) {
                     console.warn('data.json の取得に失敗しました:', error);
                 }
@@ -707,15 +741,15 @@
                 }
             }
 
-            function renderShorts(shorts) {
-                const container = document.getElementById('shorts-container');
-                if (!shorts || shorts.length === 0) return;
+            function renderVideos(videos) {
+                const container = document.getElementById('videos-container');
+                if (!videos || videos.length === 0) return;
                 
-                container.innerHTML = shorts.map(short => `
-                    <a href="${short.url}" target="_blank" rel="noopener" class="short-card">
-                        <span class="short-badge"><i class="fa-brands fa-youtube"></i> SHORT</span>
-                        <div class="short-title">${short.title}</div>
-                        <div class="short-views"><i class="fa-solid fa-play"></i> ${short.views} Views</div>
+                container.innerHTML = videos.map(video => `
+                    <a href="${video.url}" target="_blank" rel="noopener" class="video-card">
+                        <span class="video-badge"><i class="fa-brands fa-youtube"></i> POPULAR</span>
+                        <div class="video-title">${video.title}</div>
+                        <div class="video-views"><i class="fa-solid fa-play"></i> ${video.views} Views</div>
                     </a>
                 `).join('');
             }
