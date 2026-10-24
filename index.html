@@ -470,21 +470,24 @@
             background: rgba(0, 255, 204, 0.02);
         }
 
+        /* 透過画像が見えやすいよう背景色を明るめのオフホワイトに変更 */
         .reward-img-wrapper {
             width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: #000;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 10px;
+            background: linear-gradient(135deg, #1e1e1e 0%, #2b2b2b 100%);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 12px;
             min-height: 200px;
+            border-radius: 4px;
         }
 
         .reward-card img {
             max-width: 100%;
             max-height: 280px;
             object-fit: contain;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
         }
 
         .reward-title {
