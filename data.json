@@ -18,17 +18,42 @@
   },
   "featuredVideos": [
     {
-      "title": "YouTube Video #1",
-      "url": "https://www.youtube.com/@Twitch_vjpvt",
-      "views": "---"
+      "title": "三歩歩けば忘れる｜#VALORANT #武威 #vtuber",
+      "url": "https://www.youtube.com/watch?v=QcvP8UsCHbU",
+      "views": "13,512"
+    },
+    {
+      "title": "新UIクイズ大会｜#VALORANT #武威 #vtuber",
+      "url": "https://www.youtube.com/watch?v=43tSTGLUwWg",
+      "views": "12,614"
+    },
+    {
+      "title": "拒絶する野良韓国人｜#VALORANT #武威 #vtuber",
+      "url": "https://www.youtube.com/watch?v=7geQoBcZLgo",
+      "views": "4,912"
     }
   ],
-  "lastUpdated": "2026-10-24 16:30",
+  "lastUpdated": "2026-10-24 16:31",
   "history": [
-    { "time": "10-20", "viewers": 3 },
-    { "time": "10-21", "viewers": 5 },
-    { "time": "10-22", "viewers": 4 },
-    { "time": "10-23", "viewers": 6 },
-    { "time": "10-24", "viewers": 4 }
+    {
+      "time": "10-20",
+      "viewers": 3
+    },
+    {
+      "time": "10-21",
+      "viewers": 5
+    },
+    {
+      "time": "10-22",
+      "viewers": 4
+    },
+    {
+      "time": "10-23",
+      "viewers": 6
+    },
+    {
+      "time": "10-24",
+      "viewers": 4
+    }
   ]
 }
