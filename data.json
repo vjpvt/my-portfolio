@@ -5,7 +5,7 @@
   "avgViewers": "0",
   "maxViewers": "120",
   "airTime": "120h",
-  "lastUpdated": "2026-10-24 13:39",
+  "lastUpdated": "2026-10-24 13:44",
   "history": [
     {
       "time": "2026-10-24 13:36",
@@ -13,6 +13,10 @@
     },
     {
       "time": "2026-10-24 13:39",
+      "viewers": 0
+    },
+    {
+      "time": "2026-10-24 13:44",
       "viewers": 0
     }
   ]
