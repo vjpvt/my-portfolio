@@ -16,35 +16,19 @@
       "sub": "18–24歳 (32.8%)"
     }
   },
-  "lastUpdated": "2026-10-24 15:20",
-  "history": [
+  "featuredVideos": [
     {
-      "time": "10-20",
-      "viewers": 3
-    },
-    {
-      "time": "10-21",
-      "viewers": 5
-    },
-    {
-      "time": "10-22",
-      "viewers": 4
-    },
-    {
-      "time": "10-23",
-      "viewers": 6
-    },
-    {
-      "time": "10-24",
-      "viewers": 4
-    },
-    {
-      "time": "2026-10-24 14:36",
-      "viewers": 0
-    },
-    {
-      "time": "2026-10-24 15:20",
-      "viewers": 0
+      "title": "YouTube Video #1",
+      "url": "https://www.youtube.com/@Twitch_vjpvt",
+      "views": "---"
     }
+  ],
+  "lastUpdated": "2026-10-24 14:50",
+  "history": [
+    { "time": "10-20", "viewers": 3 },
+    { "time": "10-21", "viewers": 5 },
+    { "time": "10-22", "viewers": 4 },
+    { "time": "10-23", "viewers": 6 },
+    { "time": "10-24", "viewers": 4 }
   ]
 }
