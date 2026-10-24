@@ -79,7 +79,6 @@ def fetch_youtube_data():
         return {"subscribers": "---", "totalViews": "0", "featuredVideos": []}
     
     try:
-        # 1. チャンネル基本統計（登録者・総再生数・アップロードプレイリストID）
         stats_url = f"https://www.googleapis.com/youtube/v3/channels?part=statistics,contentDetails&id={YOUTUBE_CHANNEL_ID}&key={YOUTUBE_API_KEY}"
         req = urllib.request.Request(stats_url)
         with urllib.request.urlopen(req) as res:
@@ -91,10 +90,8 @@ def fetch_youtube_data():
             stats = items[0]["statistics"]
             subs = stats.get("subscriberCount", "0")
             views = stats.get("viewCount", "0")
-            
             uploads_playlist_id = items[0]["contentDetails"]["relatedPlaylists"]["uploads"]
 
-        # 2. アップロード動画一覧を取得して再生数順にソートし、上位3つを抽出
         playlist_url = f"https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId={uploads_playlist_id}&key={YOUTUBE_API_KEY}"
         req_pl = urllib.request.Request(playlist_url)
         featured_videos = []
@@ -108,9 +105,8 @@ def fetch_youtube_data():
                 if title != "Private video" and title != "Deleted video":
                     videos.append({"videoId": vid, "title": title})
 
-            # 各動画の詳細（再生数）を取得
             if videos:
-                vids_str = ",".join([v["videoId"] for v in videos[:20]]) # 直近の20本を対象にチェック
+                vids_str = ",".join([v["videoId"] for v in videos[:20]])
                 details_url = f"https://www.googleapis.com/youtube/v3/videos?part=statistics&id={vids_str}&key={YOUTUBE_API_KEY}"
                 req_det = urllib.request.Request(details_url)
                 with urllib.request.urlopen(req_det) as res_det:
@@ -119,11 +115,9 @@ def fetch_youtube_data():
                     for d in det_data.get("items", []):
                         v_id = d["id"]
                         v_views = int(d["statistics"].get("viewCount", 0))
-                        # 対応するタイトルを探す
                         v_title = next((v["title"] for v in videos if v["videoId"] == v_id), "YouTube Video")
                         vid_stats.append({"title": v_title, "url": f"https://www.youtube.com/watch?v={v_id}", "views": f"{v_views:,}"})
                     
-                    # 再生数が多い順にソートして上位3つを取得
                     vid_stats.sort(key=lambda x: int(x["views"].replace(",", "")), reverse=True)
                     featured_videos = vid_stats[:3]
 
@@ -153,21 +147,29 @@ def main():
     youtube_info = fetch_youtube_data()
 
     jst = timezone(timedelta(hours=9))
-    now_str = datetime.now(jst).strftime("%Y-%m-%d %H:%M")
+    now_str = datetime.now(jst).strftime("%m-%d") # 日付のみ (例: 10-24)
 
     current_viewers = twitch_info.get("viewers", 0)
 
-    history.append({
-        "time": now_str,
-        "viewers": int(current_viewers)
-    })
-    if len(history) > 100:
-        history = history[-100:]
+    # 配信中（視聴者が0より大きい）の場合のみ、または今日の記録がまだない場合に履歴をスマートに管理
+    if current_viewers > 0:
+        # すでに今日の日付のデータがあれば更新、なければ追加
+        existing_today = next((h for h in history if h["time"] == now_str), None)
+        if existing_today:
+            if current_viewers > existing_today["viewers"]:
+                existing_today["viewers"] = int(current_viewers)
+        else:
+            history.append({
+                "time": now_str,
+                "viewers": int(current_viewers)
+            })
+
+    if len(history) > 30:
+        history = history[-30:]
 
     valid_viewers = [h["viewers"] for h in history if h["viewers"] > 0]
     avg_viewers = int(sum(valid_viewers) / len(valid_viewers)) if valid_viewers else 4
 
-    # 手動保持データの引き継ぎ
     max_viewers = old_data.get("maxViewers", "170")
     twitch_unique_avg = old_data.get("twitchUniqueAvg", "265")
     youtube_demographics = old_data.get("youtubeDemographics", {
@@ -175,7 +177,6 @@ def main():
         "age": {"core": "25–34歳 (45.5%)", "sub": "18–24歳 (32.8%)"}
     })
     
-    # YouTube APIから自動取得できた場合はそれを優先、無ければ既存を維持
     featured_videos = youtube_info.get("featuredVideos", [])
     if not featured_videos:
         featured_videos = old_data.get("featuredVideos", [
@@ -192,13 +193,13 @@ def main():
         "twitchUniqueAvg": twitch_unique_avg,
         "youtubeDemographics": youtube_demographics,
         "featuredVideos": featured_videos,
-        "lastUpdated": now_str,
+        "lastUpdated": datetime.now(jst).strftime("%Y-%m-%d %H:%M"),
         "history": history
     }
 
     with open(data_file, "w", encoding="utf-8") as f:
         json.dump(new_data, f, ensure_ascii=False, indent=2)
-    print("data.json updated successfully with automatic top videos!")
+    print("data.json updated successfully with clean history!")
 
 if __name__ == "__main__":
     main()
