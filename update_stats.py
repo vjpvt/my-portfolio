@@ -76,7 +76,7 @@ def fetch_twitch_data(token):
 
 def fetch_youtube_data():
     if not YOUTUBE_API_KEY:
-        return {"subscribers": "---", "totalViews": "---"}
+        return {"subscribers": "---", "totalViews": "0"}
     
     try:
         stats_url = f"https://www.googleapis.com/youtube/v3/channels?part=statistics&id={YOUTUBE_CHANNEL_ID}&key={YOUTUBE_API_KEY}"
@@ -94,10 +94,11 @@ def fetch_youtube_data():
                 }
     except Exception as e:
         print(f"YouTube API Error: {e}")
-    return {"subscribers": "---", "totalViews": "---"}
+    return {"subscribers": "---", "totalViews": "0"}
 
 def main():
     data_file = "data.json"
+    old_data = {}
     history = []
     if os.path.exists(data_file):
         try:
@@ -125,7 +126,21 @@ def main():
 
     valid_viewers = [h["viewers"] for h in history if h["viewers"] > 0]
     avg_viewers = int(sum(valid_viewers) / len(valid_viewers)) if valid_viewers else 4
-    max_viewers = max([h["viewers"] for h in history]) if history else 12
+
+    max_viewers = old_data.get("maxViewers", "170")
+    twitch_unique_avg = old_data.get("twitchUniqueAvg", "265")
+    youtube_demographics = old_data.get("youtubeDemographics", {
+        "gender": {"male": "93.6%", "female": "6.4%"},
+        "age": {
+            "13-17": "9.9%",
+            "18-24": "32.8%",
+            "25-34": "45.5%",
+            "35-44": "6.6%",
+            "45-54": "4.7%",
+            "55-64": "0.3%",
+            "65+": "0.2%"
+        }
+    })
 
     new_data = {
         "twitchFollowers": twitch_info.get("followers", "378"),
@@ -133,28 +148,16 @@ def main():
         "youtubeSubscribers": youtube_info.get("subscribers", "58"),
         "youtubeTotalViews": youtube_info.get("totalViews", "0"),
         "avgViewers": str(avg_viewers),
-        "maxViewers": str(max_viewers),
-        "airTime": "120h",
-        "twitchUniqueAvg": "265",
-        "youtubeDemographics": {
-            "gender": {"male": "93.6%", "female": "6.4%"},
-            "age": {
-                "13-17": "9.9%",
-                "18-24": "32.8%",
-                "25-34": "45.5%",
-                "35-44": "6.6%",
-                "45-54": "4.7%",
-                "55-64": "0.3%",
-                "65+": "0.2%"
-            }
-        },
+        "maxViewers": max_viewers,
+        "twitchUniqueAvg": twitch_unique_avg,
+        "youtubeDemographics": youtube_demographics,
         "lastUpdated": now_str,
         "history": history
     }
 
     with open(data_file, "w", encoding="utf-8") as f:
         json.dump(new_data, f, ensure_ascii=False, indent=2)
-    print("data.json updated successfully with expanded metrics!")
+    print("data.json updated with Total Views successfully!")
 
 if __name__ == "__main__":
     main()
