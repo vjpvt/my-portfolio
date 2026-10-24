@@ -117,6 +117,40 @@
             text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
         }
 
+        /* FLOATING QUICK LINKS (右下追従) */
+        .floating-socials {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 90;
+        }
+
+        .floating-btn {
+            width: 45px;
+            height: 45px;
+            background: rgba(18, 18, 18, 0.9);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            backdrop-filter: blur(6px);
+            transition: all 0.3s ease;
+            clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+        }
+
+        .floating-btn:hover {
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+            background: rgba(0, 255, 204, 0.1);
+            transform: translateY(-2px);
+        }
+
         /* HERO SECTION */
         .hero {
             padding: 100px 0 60px;
@@ -469,6 +503,7 @@
             .hero-title-zh { font-size: 2.8rem; }
             .hero-title-en { font-size: 1.8rem; }
             .nav-links { display: none; }
+            .floating-socials { bottom: 20px; right: 20px; }
         }
     </style>
 </head>
@@ -489,6 +524,19 @@
             </nav>
         </div>
     </header>
+
+    <!-- FLOATING QUICK SOCIAL LINKS (右下追従) -->
+    <div class="floating-socials">
+        <a href="https://www.twitch.tv/vjpvt" target="_blank" rel="noopener" class="floating-btn" title="Twitch">
+            <i class="fa-brands fa-twitch"></i>
+        </a>
+        <a href="https://x.com/Vjpvt_" target="_blank" rel="noopener" class="floating-btn" title="X (Twitter)">
+            <i class="fa-brands fa-x-twitter"></i>
+        </a>
+        <a href="https://www.youtube.com/@Twitch_vjpvt" target="_blank" rel="noopener" class="floating-btn" title="YouTube">
+            <i class="fa-brands fa-youtube"></i>
+        </a>
+    </div>
 
     <main class="container">
         <!-- HERO -->
@@ -791,7 +839,7 @@
             function renderChart(history) {
                 if (!history || history.length === 0) return;
 
-                const labels = history.map(item => item.time);
+                The labels = history.map(item => item.time);
                 const viewersData = history.map(item => item.viewers);
 
                 const ctx = document.getElementById('viewerChart').getContext('2d');
