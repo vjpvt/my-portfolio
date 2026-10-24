@@ -4,7 +4,7 @@ from datetime import datetime, timezone, timedelta
 import urllib.request
 import urllib.parse
 
-# 1. ユーザー情報の設定 (確定したチャンネルIDとTwitchアカウント名)
+# 1. ユーザー情報の設定
 YOUTUBE_CHANNEL_ID = "UCFXQUC7qZprU9nYSV6fpeiA" 
 TWITCH_USER_LOGIN = "vjpvt"
 
@@ -34,7 +34,7 @@ def get_twitch_token():
 
 def fetch_twitch_data(token):
     if not token or not TWITCH_USER_LOGIN:
-        return {"followers": "378", "viewers": "0", "maxViewers": "120", "airTime": "120h"}
+        return {"followers": "0", "viewers": 0}
     
     headers = {
         "Client-ID": TWITCH_CLIENT_ID,
@@ -51,12 +51,14 @@ def fetch_twitch_data(token):
                 return {}
             user_id = users[0]["id"]
             
+        # フォロワー数取得
         follow_url = f"https://api.twitch.tv/helix/channels/followers?broadcaster_id={user_id}"
         req_f = urllib.request.Request(follow_url, headers=headers)
         with urllib.request.urlopen(req_f) as res:
             follow_data = json.loads(res.read().decode("utf-8"))
             total_followers = follow_data.get("total", 0)
             
+        # ライブ配信中の視聴者数取得
         stream_url = f"https://api.twitch.tv/helix/streams?user_id={user_id}"
         req_s = urllib.request.Request(stream_url, headers=headers)
         current_viewers = 0
@@ -68,13 +70,11 @@ def fetch_twitch_data(token):
                 
         return {
             "followers": f"{total_followers:,}",
-            "viewers": str(current_viewers),
-            "maxViewers": "120",
-            "airTime": "120h"
+            "viewers": current_viewer_int := current_viewers
         }
     except Exception as e:
         print(f"Twitch API Error: {e}")
-        return {}
+        return {"followers": "378", "viewers": 0}
 
 def fetch_youtube_data():
     if not YOUTUBE_API_KEY:
@@ -111,28 +111,35 @@ def main():
     jst = timezone(timedelta(hours=9))
     now_str = datetime.now(jst).strftime("%Y-%m-%d %H:%M")
 
+    current_viewers = twitch_info.get("viewers", 0)
+
+    # 履歴に今回の測定値を追加
+    history.append({
+        "time": now_str,
+        "viewers": int(current_viewers)
+    })
+    if len(history) > 100:
+        history = history[-100:]
+
+    # 履歴データから平均視聴者数と最高同時視聴者数を自動計算
+    valid_viewers = [h["viewers"] for h in history if h["viewers"] > 0]
+    avg_viewers = int(sum(valid_viewers) / len(valid_viewers)) if valid_viewers else 0
+    max_viewers = max([h["viewers"] for h in history]) if history else 0
+
     new_data = {
         "twitchFollowers": twitch_info.get("followers", "378"),
         "xFollowers": "850",
         "youtubeSubscribers": youtube_info.get("subscribers", "---"),
-        "avgViewers": twitch_info.get("viewers", "0"),
-        "maxViewers": twitch_info.get("maxViewers", "120"),
-        "airTime": twitch_info.get("airTime", "120h"),
-        "lastUpdated": now_str
+        "avgViewers": str(avg_viewers),
+        "maxViewers": str(max_viewers),
+        "airTime": "120h",
+        "lastUpdated": now_str,
+        "history": history
     }
-
-    history.append({
-        "time": now_str,
-        "viewers": int(twitch_info.get("viewers", "0") if str(twitch_info.get("viewers", "0")).isdigit() else 0)
-    })
-    if len(history) > 100:
-        history = history[-100:]
-    
-    new_data["history"] = history
 
     with open(data_file, "w", encoding="utf-8") as f:
         json.dump(new_data, f, ensure_ascii=False, indent=2)
-    print("data.json updated successfully!")
+    print("data.json updated successfully with automatic calculations!")
 
 if __name__ == "__main__":
     main()
