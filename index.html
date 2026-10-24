@@ -117,7 +117,7 @@
             text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
         }
 
-        /* FLOATING QUICK LINKS (右下追従) */
+        /* FLOATING QUICK SOCIAL LINKS (右下追従) */
         .floating-socials {
             position: fixed;
             bottom: 30px;
@@ -723,11 +723,6 @@
                     <div class="tl-title">Mecha BREAK 公式クリエイター</div>
                     <div class="tl-desc">Mecha BREAK 公式クリエイターとして動画投稿および配信活動を展開。</div>
                 </div>
-                <div class="tl-item">
-                    <div class="tl-date">2021.09.25</div>
-                    <div class="tl-title">配信活動開始</div>
-                    <div class="tl-desc">Twitchにて本格的にストリーマーとしての配信活動を開始。</div>
-                </div>
             </div>
 
             <!-- 長期パートナーシップ募集セクション -->
@@ -839,7 +834,7 @@
             function renderChart(history) {
                 if (!history || history.length === 0) return;
 
-                The labels = history.map(item => item.time);
+                const labels = history.map(item => item.time);
                 const viewersData = history.map(item => item.viewers);
 
                 const ctx = document.getElementById('viewerChart').getContext('2d');
