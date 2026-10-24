@@ -5,7 +5,6 @@
   "youtubeTotalViews": "450,567",
   "avgViewers": "4",
   "maxViewers": "6",
-  "airTime": "120h",
   "twitchUniqueAvg": "265",
   "youtubeDemographics": {
     "gender": {
@@ -22,7 +21,7 @@
       "65+": "0.2%"
     }
   },
-  "lastUpdated": "2026-10-24 14:13",
+  "lastUpdated": "2026-10-24 14:20",
   "history": [
     {
       "time": "10-20",
@@ -46,6 +45,10 @@
     },
     {
       "time": "2026-10-24 14:13",
+      "viewers": 0
+    },
+    {
+      "time": "2026-10-24 14:20",
       "viewers": 0
     }
   ]
