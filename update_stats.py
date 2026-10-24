@@ -131,11 +131,11 @@ def main():
         "twitchFollowers": twitch_info.get("followers", "378"),
         "xFollowers": "850",
         "youtubeSubscribers": youtube_info.get("subscribers", "58"),
-        "youtubeTotalViews": youtube_info.get("totalViews", "15,200"),
+        "youtubeTotalViews": youtube_info.get("totalViews", "0"),
         "avgViewers": str(avg_viewers),
         "maxViewers": str(max_viewers),
         "airTime": "120h",
-        # 手動管理するデモグラフィック情報（YouTube Studioの数値）
+        "twitchUniqueAvg": "265",
         "youtubeDemographics": {
             "gender": {"male": "93.6%", "female": "6.4%"},
             "age": {
@@ -148,14 +148,13 @@ def main():
                 "65+": "0.2%"
             }
         },
-        "twitchUniqueAvg": "265", # Twitchのユニーク視聴者数（平均/月間目安として手動または連動）
         "lastUpdated": now_str,
         "history": history
     }
 
     with open(data_file, "w", encoding="utf-8") as f:
         json.dump(new_data, f, ensure_ascii=False, indent=2)
-    print("data.json updated successfully with new metrics!")
+    print("data.json updated successfully with expanded metrics!")
 
 if __name__ == "__main__":
     main()
