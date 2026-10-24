@@ -20,6 +20,8 @@
             --text-primary: #f0f0f0;
             --text-muted: #888888;
             --accent-white: #ffffff;
+            --accent-cyan: #00ffcc;
+            --accent-pink: #ff0055;
             --font-mono: 'Share Tech Mono', monospace;
             --font-sf: 'Orbitron', sans-serif;
             --font-main: 'Noto Sans JP', sans-serif;
@@ -174,16 +176,6 @@
             position: relative;
         }
 
-        .hero-desc::after {
-            content: "機密";
-            position: absolute;
-            top: 5px;
-            right: 10px;
-            font-size: 0.7rem;
-            color: rgba(255,255,255,0.15);
-            font-weight: 900;
-        }
-
         /* COMMON SECTION STYLES */
         section {
             padding: 60px 0;
@@ -267,49 +259,6 @@
             border-left: 2px solid var(--accent-white);
         }
 
-        /* ABOUT ME */
-        .bio-box p {
-            margin-bottom: 12px;
-            color: #ccc;
-            font-size: 0.95rem;
-        }
-
-        .contact-group {
-            margin-top: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .contact-card {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 15px;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--border-color);
-        }
-
-        .contact-card:hover {
-            background: rgba(255,255,255,0.08);
-            border-color: var(--accent-white);
-        }
-
-        .contact-label {
-            font-family: var(--font-mono);
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .contact-val {
-            font-family: var(--font-mono);
-            font-size: 0.95rem;
-            color: var(--accent-white);
-        }
-
         /* METRICS / STATS */
         .stat-card {
             display: flex;
@@ -344,6 +293,48 @@
             font-size: 0.8rem;
             color: var(--text-muted);
             font-family: var(--font-mono);
+        }
+
+        /* SHORT CARDS STYLE */
+        .short-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            position: relative;
+        }
+
+        .short-card:hover {
+            border-color: var(--accent-cyan);
+            background: rgba(0, 255, 204, 0.05);
+        }
+
+        .short-badge {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--accent-cyan);
+            border: 1px solid var(--accent-cyan);
+            padding: 2px 6px;
+            align-self: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .short-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .short-views {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
         /* TIMELINE */
@@ -492,30 +483,30 @@
                     <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">
                         案件のご依頼、コラボ等のお問い合わせはメールまたはX(Twitter)のDMより受け付けております。
                     </p>
-                    <div class="contact-group">
-                        <a href="mailto:v.vss.man@gmail.com" class="contact-card">
-                            <span class="contact-label"><i class="fa-solid fa-envelope"></i> E-MAIL</span>
-                            <span class="contact-val">v.vss.man@gmail.com</span>
+                    <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 20px;">
+                        <a href="mailto:v.vss.man@gmail.com" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color);">
+                            <span style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted);"><i class="fa-solid fa-envelope"></i> E-MAIL</span>
+                            <span style="font-family: var(--font-mono); font-size: 0.95rem;">v.vss.man@gmail.com</span>
                         </a>
-                        <a href="https://x.com/Vjpvt_" target="_blank" rel="noopener" class="contact-card">
-                            <span class="contact-label"><i class="fa-brands fa-x-twitter"></i> X (DM)</span>
-                            <span class="contact-val">@Vjpvt_</span>
+                        <a href="https://x.com/Vjpvt_" target="_blank" rel="noopener" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color);">
+                            <span style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted);"><i class="fa-brands fa-x-twitter"></i> X (DM)</span>
+                            <span style="font-family: var(--font-mono); font-size: 0.95rem;">@Vjpvt_</span>
                         </a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- SNS & STREAM METRICS -->
+        <!-- SNS & METRICS -->
         <section id="stats">
             <div class="section-header">
                 <h2 class="section-title"><span class="section-title-zh">実績</span> METRICS</h2>
                 <div class="section-line"></div>
             </div>
 
-            <!-- AUDIENCE OVERVIEW -->
-            <h3 style="font-family: var(--font-mono); font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px;">// AUDIENCE OVERVIEW</h3>
-            <div class="grid-3" style="margin-bottom: 30px;">
+            <!-- 1. SNS OVERVIEW -->
+            <h3 style="font-family: var(--font-mono); font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px;">// 1. SNS OVERVIEW</h3>
+            <div class="grid-3" style="margin-bottom: 40px;">
                 <div class="hud-card stat-card">
                     <div class="stat-header">
                         <span class="stat-platform"><i class="fa-brands fa-twitch"></i> TWITCH</span>
@@ -544,9 +535,9 @@
                 </div>
             </div>
 
-            <!-- STREAM DATA -->
-            <h3 style="font-family: var(--font-mono); font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px;">// STREAM PERFORMANCE & STATS</h3>
-            <div class="grid-3">
+            <!-- 2. TWITCH DATA -->
+            <h3 style="font-family: var(--font-mono); font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px;">// 2. TWITCH DATA (STREAM PERFORMANCE)</h3>
+            <div class="grid-3" style="margin-bottom: 20px;">
                 <div class="hud-card stat-card">
                     <div class="stat-header">
                         <span style="font-family: var(--font-mono); font-size: 0.85rem;">AVG VIEWERS</span>
@@ -567,19 +558,63 @@
 
                 <div class="hud-card stat-card">
                     <div class="stat-header">
+                        <span style="font-family: var(--font-mono); font-size: 0.85rem;">UNIQUE AVG</span>
+                        <i class="fa-solid fa-user-check" style="color: var(--text-muted);"></i>
+                    </div>
+                    <div class="stat-value" id="twitch-unique-avg">取得中...</div>
+                    <div class="stat-sub">月間平均ユニーク視聴者</div>
+                </div>
+            </div>
+
+            <!-- 同時視聴者数グラフ -->
+            <div class="hud-card" style="padding: 20px; margin-bottom: 40px;">
+                <div style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted); margin-bottom: 10px;">VIEWER TRENDS (HISTORY)</div>
+                <canvas id="viewerChart" style="width: 100%; max-height: 200px;"></canvas>
+            </div>
+
+            <!-- 3. YOUTUBE DATA -->
+            <h3 style="font-family: var(--font-mono); font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px;">// 3. YOUTUBE DATA (ANALYTICS & SHORTS)</h3>
+            <div class="grid-3" style="margin-bottom: 20px;">
+                <!-- 総再生数 -->
+                <div class="hud-card stat-card">
+                    <div class="stat-header">
                         <span style="font-family: var(--font-mono); font-size: 0.85rem;">TOTAL VIEWS</span>
                         <i class="fa-solid fa-eye" style="color: var(--text-muted);"></i>
                     </div>
                     <div class="stat-value" id="youtube-total-views">取得中...</div>
-                    <div class="stat-sub">YouTube チャンネル総再生数</div>
+                    <div class="stat-sub">チャンネル総再生数</div>
+                </div>
+
+                <!-- 男女比率 -->
+                <div class="hud-card stat-card">
+                    <div style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">GENDER RATIO (男女比)</div>
+                    <div style="display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 8px;">
+                        <span>男性: <strong id="male-ratio" style="color: var(--accent-cyan);">93.6%</strong></span>
+                        <span>女性: <strong id="female-ratio" style="color: var(--accent-pink);">6.4%</strong></span>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.1); height: 8px; border-radius: 4px; overflow: hidden; display: flex;">
+                        <div id="male-bar" style="width: 93.6%; background: var(--accent-cyan);"></div>
+                        <div id="female-bar" style="width: 6.4%; background: var(--accent-pink);"></div>
+                    </div>
+                    <div class="stat-sub" style="margin-top: 10px;">YouTube Studio アナリティクス</div>
+                </div>
+
+                <!-- 年齢層 -->
+                <div class="hud-card stat-card">
+                    <div style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">AGE GROUPS (年齢層)</div>
+                    <div style="font-size: 0.85rem; display: flex; flex-direction: column; gap: 4px;">
+                        <div>Core Target: <strong id="age-core" style="color: #fff;">25–34歳 (45.5%)</strong></div>
+                        <div>Sub Target: <strong id="age-sub" style="color: #aaa;">18–24歳 (32.8%)</strong></div>
+                    </div>
+                    <div class="stat-sub" style="margin-top: 10px;">コア層：20〜30代中心</div>
                 </div>
             </div>
 
-            <!-- グラフ表示エリア -->
-            <div style="margin-top: 30px;">
-                <h3 style="font-family: var(--font-mono); font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px;">// VIEWER TRENDS (HISTORY)</h3>
-                <div class="hud-card" style="padding: 20px;">
-                    <canvas id="viewerChart" style="width: 100%; max-height: 250px;"></canvas>
+            <!-- 人気ショート動画3選 -->
+            <div class="hud-card" style="padding: 20px;">
+                <div style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">FEATURED SHORTS (注目ショート動画)</div>
+                <div class="grid-3" id="shorts-container">
+                    <!-- JavaScriptで動的生成されます -->
                 </div>
             </div>
         </section>
@@ -632,15 +667,6 @@
         document.addEventListener('DOMContentLoaded', () => {
             const DATA_API_URL = './data.json';
 
-            const fallbackData = {
-                twitchFollowers: "378",
-                xFollowers: "850",
-                youtubeSubscribers: "58",
-                youtubeTotalViews: "15,200",
-                avgViewers: "4",
-                maxViewers: "170"
-            };
-
             async function fetchMetrics() {
                 try {
                     const response = await fetch(DATA_API_URL + '?t=' + new Date().getTime());
@@ -650,9 +676,9 @@
                     const data = await response.json();
                     renderData(data);
                     renderChart(data.history);
+                    renderShorts(data.popularShorts);
                 } catch (error) {
-                    console.warn('data.json の取得に失敗したため、初期表示設定を適用します:', error);
-                    renderData(fallbackData);
+                    console.warn('data.json の取得に失敗しました:', error);
                 }
             }
 
@@ -662,7 +688,36 @@
                 document.getElementById('youtube-subscribers').textContent = data.youtubeSubscribers || "---";
                 document.getElementById('avg-viewers').textContent = data.avgViewers || "---";
                 document.getElementById('max-viewers').textContent = data.maxViewers || "---";
+                document.getElementById('twitch-unique-avg').textContent = data.twitchUniqueAvg || "---";
                 document.getElementById('youtube-total-views').textContent = data.youtubeTotalViews || "---";
+
+                // デモグラフィックの反映
+                if (data.youtubeDemographics) {
+                    const demo = data.youtubeDemographics;
+                    if (demo.gender) {
+                        document.getElementById('male-ratio').textContent = demo.gender.male || "93.6%";
+                        document.getElementById('female-ratio').textContent = demo.gender.female || "6.4%";
+                        document.getElementById('male-bar').style.width = demo.gender.male || "93.6%";
+                        document.getElementById('female-bar').style.width = demo.gender.female || "6.4%";
+                    }
+                    if (demo.age) {
+                        document.getElementById('age-core').textContent = demo.age.core || "25–34歳 (45.5%)";
+                        document.getElementById('age-sub').textContent = demo.age.sub || "18–24歳 (32.8%)";
+                    }
+                }
+            }
+
+            function renderShorts(shorts) {
+                const container = document.getElementById('shorts-container');
+                if (!shorts || shorts.length === 0) return;
+                
+                container.innerHTML = shorts.map(short => `
+                    <a href="${short.url}" target="_blank" rel="noopener" class="short-card">
+                        <span class="short-badge"><i class="fa-brands fa-youtube"></i> SHORT</span>
+                        <div class="short-title">${short.title}</div>
+                        <div class="short-views"><i class="fa-solid fa-play"></i> ${short.views} Views</div>
+                    </a>
+                `).join('');
             }
 
             function renderChart(history) {
