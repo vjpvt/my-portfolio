@@ -2,10 +2,10 @@
   "twitchFollowers": "378",
   "xFollowers": "850",
   "youtubeSubscribers": "58",
-  "youtubeTotalViews": "15,200",
+  "youtubeTotalViews": "450,567",
   "avgViewers": "4",
   "maxViewers": "6",
-  "airTime": "1,450h",
+  "airTime": "120h",
   "twitchUniqueAvg": "265",
   "youtubeDemographics": {
     "gender": {
@@ -22,12 +22,31 @@
       "65+": "0.2%"
     }
   },
-  "lastUpdated": "2026-10-24 14:10",
+  "lastUpdated": "2026-10-24 14:11",
   "history": [
-    { "time": "10-20", "viewers": 3 },
-    { "time": "10-21", "viewers": 5 },
-    { "time": "10-22", "viewers": 4 },
-    { "time": "10-23", "viewers": 6 },
-    { "time": "10-24", "viewers": 4 }
+    {
+      "time": "10-20",
+      "viewers": 3
+    },
+    {
+      "time": "10-21",
+      "viewers": 5
+    },
+    {
+      "time": "10-22",
+      "viewers": 4
+    },
+    {
+      "time": "10-23",
+      "viewers": 6
+    },
+    {
+      "time": "10-24",
+      "viewers": 4
+    },
+    {
+      "time": "2026-10-24 14:11",
+      "viewers": 0
+    }
   ]
 }
