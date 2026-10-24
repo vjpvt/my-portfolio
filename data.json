@@ -2,30 +2,15 @@
   "twitchFollowers": "378",
   "xFollowers": "850",
   "youtubeSubscribers": "58",
-  "avgViewers": "0",
-  "maxViewers": "0",
+  "avgViewers": "4",
+  "maxViewers": "12",
   "airTime": "120h",
-  "lastUpdated": "2026-10-24 13:51",
+  "lastUpdated": "2026-10-24 14:00",
   "history": [
-    {
-      "time": "2026-10-24 13:36",
-      "viewers": 0
-    },
-    {
-      "time": "2026-10-24 13:39",
-      "viewers": 0
-    },
-    {
-      "time": "2026-10-24 13:44",
-      "viewers": 0
-    },
-    {
-      "time": "2026-10-24 13:47",
-      "viewers": 0
-    },
-    {
-      "time": "2026-10-24 13:51",
-      "viewers": 0
-    }
+    { "time": "10-20", "viewers": 3 },
+    { "time": "10-21", "viewers": 5 },
+    { "time": "10-22", "viewers": 4 },
+    { "time": "10-23", "viewers": 6 },
+    { "time": "10-24", "viewers": 4 }
   ]
 }
