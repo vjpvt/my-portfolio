@@ -2,9 +2,23 @@
   "twitchFollowers": "378",
   "xFollowers": "850",
   "youtubeSubscribers": "58",
+  "youtubeTotalViews": "15,200",
   "avgViewers": "4",
   "maxViewers": "12",
   "airTime": "120h",
+  "youtubeDemographics": {
+    "gender": { "male": "93.6%", "female": "6.4%" },
+    "age": {
+      "13-17": "9.9%",
+      "18-24": "32.8%",
+      "25-34": "45.5%",
+      "35-44": "6.6%",
+      "45-54": "4.7%",
+      "55-64": "0.3%",
+      "65+": "0.2%"
+    }
+  },
+  "twitchUniqueAvg": "265",
   "lastUpdated": "2026-10-24 14:00",
   "history": [
     { "time": "10-20", "viewers": 3 },
