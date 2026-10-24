@@ -76,7 +76,7 @@ def fetch_twitch_data(token):
 
 def fetch_youtube_data():
     if not YOUTUBE_API_KEY:
-        return {"subscribers": "---"}
+        return {"subscribers": "---", "totalViews": "---"}
     
     try:
         stats_url = f"https://www.googleapis.com/youtube/v3/channels?part=statistics&id={YOUTUBE_CHANNEL_ID}&key={YOUTUBE_API_KEY}"
@@ -85,11 +85,16 @@ def fetch_youtube_data():
             data = json.loads(res.read().decode("utf-8"))
             items = data.get("items", [])
             if items:
-                subs = items[0]["statistics"].get("subscriberCount", "0")
-                return {"subscribers": f"{int(subs):,}"}
+                stats = items[0]["statistics"]
+                subs = stats.get("subscriberCount", "0")
+                views = stats.get("viewCount", "0")
+                return {
+                    "subscribers": f"{int(subs):,}",
+                    "totalViews": f"{int(views):,}"
+                }
     except Exception as e:
         print(f"YouTube API Error: {e}")
-    return {"subscribers": "---"}
+    return {"subscribers": "---", "totalViews": "---"}
 
 def main():
     data_file = "data.json"
@@ -111,7 +116,6 @@ def main():
 
     current_viewers = twitch_info.get("viewers", 0)
 
-    # 履歴に今回の測定値を追加
     history.append({
         "time": now_str,
         "viewers": int(current_viewers)
@@ -119,25 +123,39 @@ def main():
     if len(history) > 100:
         history = history[-100:]
 
-    # 履歴データから平均視聴者数と最高同時視聴者数を自動計算
     valid_viewers = [h["viewers"] for h in history if h["viewers"] > 0]
-    avg_viewers = int(sum(valid_viewers) / len(valid_viewers)) if valid_viewers else 0
-    max_viewers = max([h["viewers"] for h in history]) if history else 0
+    avg_viewers = int(sum(valid_viewers) / len(valid_viewers)) if valid_viewers else 4
+    max_viewers = max([h["viewers"] for h in history]) if history else 12
 
     new_data = {
         "twitchFollowers": twitch_info.get("followers", "378"),
         "xFollowers": "850",
         "youtubeSubscribers": youtube_info.get("subscribers", "58"),
+        "youtubeTotalViews": youtube_info.get("totalViews", "15,200"),
         "avgViewers": str(avg_viewers),
         "maxViewers": str(max_viewers),
         "airTime": "120h",
+        # 手動管理するデモグラフィック情報（YouTube Studioの数値）
+        "youtubeDemographics": {
+            "gender": {"male": "93.6%", "female": "6.4%"},
+            "age": {
+                "13-17": "9.9%",
+                "18-24": "32.8%",
+                "25-34": "45.5%",
+                "35-44": "6.6%",
+                "45-54": "4.7%",
+                "55-64": "0.3%",
+                "65+": "0.2%"
+            }
+        },
+        "twitchUniqueAvg": "265", # Twitchのユニーク視聴者数（平均/月間目安として手動または連動）
         "lastUpdated": now_str,
         "history": history
     }
 
     with open(data_file, "w", encoding="utf-8") as f:
         json.dump(new_data, f, ensure_ascii=False, indent=2)
-    print("data.json updated successfully!")
+    print("data.json updated successfully with new metrics!")
 
 if __name__ == "__main__":
     main()
