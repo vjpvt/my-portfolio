@@ -4,9 +4,8 @@ from datetime import datetime, timezone, timedelta
 import urllib.request
 import urllib.parse
 
-# 1. ユーザー情報・チャンネルIDの設定
-# 武威さんのYouTubeチャンネルID (概要欄等のURLにあるもの、または必要に応じて指定)
-YOUTUBE_CHANNEL_ID = "UC_Twitch_vjpvt"  # ※実際のチャンネルIDに合わせるかAPIで検索可能にします
+# 1. ユーザー情報の設定
+YOUTUBE_HANDLE = "VJPVTch" # 武威さんの最新ハンドル名 (@を除いた文字)
 TWITCH_USER_LOGIN = "vjpvt"
 
 # 2. API認証情報の読み込み (GitHub Secretsから自動で渡されます)
@@ -42,7 +41,6 @@ def fetch_twitch_data(token):
         "Authorization": f"Bearer {token}"
     }
     
-    # ユーザー情報の取得（IDとフォロワー数）
     user_url = f"https://api.twitch.tv/helix/users?login={TWITCH_USER_LOGIN}"
     req = urllib.request.Request(user_url, headers=headers)
     try:
@@ -53,14 +51,12 @@ def fetch_twitch_data(token):
                 return {}
             user_id = users[0]["id"]
             
-        # フォロワー数取得
         follow_url = f"https://api.twitch.tv/helix/channels/followers?broadcaster_id={user_id}"
         req_f = urllib.request.Request(follow_url, headers=headers)
         with urllib.request.urlopen(req_f) as res:
             follow_data = json.loads(res.read().decode("utf-8"))
             total_followers = follow_data.get("total", 0)
             
-        # ライブ配信情報（現在配信中なら視聴者数取得）
         stream_url = f"https://api.twitch.tv/helix/streams?user_id={user_id}"
         req_s = urllib.request.Request(stream_url, headers=headers)
         current_viewers = 0
@@ -73,7 +69,7 @@ def fetch_twitch_data(token):
         return {
             "followers": f"{total_followers:,}",
             "viewers": str(current_viewers),
-            "maxViewers": "120", # 過去最高値の管理用（必要に応じ調整）
+            "maxViewers": "120",
             "airTime": "120h"
         }
     except Exception as e:
@@ -84,8 +80,8 @@ def fetch_youtube_data():
     if not YOUTUBE_API_KEY:
         return {"subscribers": "---"}
     
-    # ハンドル名(@Twitch_vjpvt)からチャンネル情報を取得するURL
-    url = f"https://www.googleapis.com/youtube/v3/channels?part=statistics&forHandle=Twitch_vjpvt&key={YOUTUBE_API_KEY}"
+    # ハンドル名(VJPVTch)からチャンネル情報を取得するURL
+    url = f"https://www.googleapis.com/youtube/v3/channels?part=statistics&forHandle={YOUTUBE_HANDLE}&key={YOUTUBE_API_KEY}"
     req = urllib.request.Request(url)
     try:
         with urllib.request.urlopen(req) as res:
@@ -99,7 +95,6 @@ def fetch_youtube_data():
     return {"subscribers": "---"}
 
 def main():
-    # 既存の data.json があれば読み込んで履歴を保持する
     data_file = "data.json"
     history = []
     if os.path.exists(data_file):
@@ -110,27 +105,23 @@ def main():
         except Exception:
             pass
 
-    # 各APIからデータ取得
     token = get_twitch_token()
     twitch_info = fetch_twitch_data(token)
     youtube_info = fetch_youtube_data()
 
-    # 日本時間 (JST) の現在時刻
     jst = timezone(timedelta(hours=9))
     now_str = datetime.now(jst).strftime("%Y-%m-%d %H:%M")
 
-    # 新しいデータを構築
     new_data = {
-        "twitchFollowers": twitch_info.get("followers", "1,200"),
-        "xFollowers": "850",  # Xはハイブリッド運用（手動または固定値）
-        "youtubeSubscribers": youtube_info.get("subscribers", "450"),
-        "avgViewers": twitch_info.get("viewers", "25"),
+        "twitchFollowers": twitch_info.get("followers", "378"),
+        "xFollowers": "850",
+        "youtubeSubscribers": youtube_info.get("subscribers", "---"),
+        "avgViewers": twitch_info.get("viewers", "0"),
         "maxViewers": twitch_info.get("maxViewers", "120"),
         "airTime": twitch_info.get("airTime", "120h"),
         "lastUpdated": now_str
     }
 
-    # グラフ用の履歴データに今日のポイントを追加（最大100件まで保持）
     history.append({
         "time": now_str,
         "viewers": int(twitch_info.get("viewers", "0") if str(twitch_info.get("viewers", "0")).isdigit() else 0)
@@ -140,7 +131,6 @@ def main():
     
     new_data["history"] = history
 
-    # data.json として書き出し
     with open(data_file, "w", encoding="utf-8") as f:
         json.dump(new_data, f, ensure_ascii=False, indent=2)
     print("data.json updated successfully!")
