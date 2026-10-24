@@ -6,8 +6,12 @@
   "avgViewers": "4",
   "maxViewers": "12",
   "airTime": "120h",
+  "twitchUniqueAvg": "265",
   "youtubeDemographics": {
-    "gender": { "male": "93.6%", "female": "6.4%" },
+    "gender": {
+      "male": "93.6%",
+      "female": "6.4%"
+    },
     "age": {
       "13-17": "9.9%",
       "18-24": "32.8%",
@@ -18,7 +22,6 @@
       "65+": "0.2%"
     }
   },
-  "twitchUniqueAvg": "265",
   "lastUpdated": "2026-10-24 14:00",
   "history": [
     { "time": "10-20", "viewers": 3 },
