@@ -1,8 +1,8 @@
 {
-  "twitchFollowers": "381",
+  "twitchFollowers": "382",
   "xFollowers": "639",
   "youtubeSubscribers": "58",
-  "youtubeTotalViews": "457,841",
+  "youtubeTotalViews": "457,855",
   "avgViewers": "5",
   "maxViewers": "170",
   "twitchUniqueAvg": "265",
@@ -33,7 +33,7 @@
       "views": "4,924"
     }
   ],
-  "lastUpdated": "2026-11-09 09:38",
+  "lastUpdated": "2026-11-09 12:44",
   "history": [
     {
       "time": "10-20",
@@ -70,6 +70,10 @@
     {
       "time": "11-06",
       "viewers": 6
+    },
+    {
+      "time": "11-09",
+      "viewers": 4
     }
   ]
 }
