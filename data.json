@@ -1,8 +1,8 @@
 {
-  "twitchFollowers": "382",
+  "twitchFollowers": "383",
   "xFollowers": "639",
   "youtubeSubscribers": "59",
-  "youtubeTotalViews": "469,152",
+  "youtubeTotalViews": "469,159",
   "avgViewers": "5",
   "maxViewers": "170",
   "twitchUniqueAvg": "265",
@@ -25,7 +25,7 @@
     {
       "title": "新UIクイズ大会｜#VALORANT #武威 #vtuber",
       "url": "https://www.youtube.com/watch?v=43tSTGLUwWg",
-      "views": "12,625"
+      "views": "12,626"
     },
     {
       "title": "拒絶する野良韓国人｜#VALORANT #武威 #vtuber",
@@ -33,7 +33,7 @@
       "views": "4,927"
     }
   ],
-  "lastUpdated": "2026-11-24 02:10",
+  "lastUpdated": "2026-11-24 12:43",
   "history": [
     {
       "time": "10-20",
@@ -86,6 +86,10 @@
     {
       "time": "11-20",
       "viewers": 6
+    },
+    {
+      "time": "11-24",
+      "viewers": 4
     }
   ]
 }
